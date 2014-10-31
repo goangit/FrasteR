@@ -1,0 +1,67 @@
+subroutine f_matrix_add(m, n, a, b, c)
+
+! Add conformable matrices a and b to produce result c
+
+  implicit none
+
+  integer, intent(in)  :: m
+  integer, intent(in)  :: n
+
+  ! integer, intent(inout), dimension(:,:), allocatable :: a 
+  ! integer, intent(inout), dimension(:,:), allocatable :: b
+  ! integer, intent(inout), dimension(:,:), allocatable :: c
+
+  integer, intent(inout), dimension(n,m) :: a(n,m) 
+  integer, intent(inout), dimension(n,m) :: b(n,m)
+  integer, intent(inout), dimension(n,m) :: c(n,m)
+
+  ! integer, parameter :: out_unit = 20 
+
+  ! integer :: i,j
+
+  ! allocate (a(n,m))
+  ! allocate (b(n,m))
+  ! allocate (c(n,m))
+
+  ! c = transpose(reshape((/ 2, 2, 3, 5, 5, 6 /), (/ n, m /)))
+
+  ! open (unit=out_unit,file='results.txt',action='write',status='replace')
+
+  ! do, i=1,m
+  !    write(out_unit,*) ( a(i,j), j=1,n ) ! implicit loop
+  ! enddo
+
+  ! close (out_unit)
+
+  c = a
+
+  !  c = a + b               
+
+  ! deallocate (a)
+  ! deallocate (b)
+
+end subroutine f_matrix_add
+
+
+subroutine f_vector_add(n, a, b, c)
+
+  implicit none
+
+  integer, intent(in)  :: n
+
+  double precision, intent(in),    dimension(n) :: a 
+  double precision, intent(inout), dimension(n) :: b
+  double precision, intent(inout), dimension(n) :: c
+
+  integer :: i
+
+  c = b + a
+
+  ! do i = 1,n
+  !     b(i) = a(i)
+  ! end do
+
+end subroutine f_vector_add
+
+
+!  ----- eof ------------------------------------------------------------------

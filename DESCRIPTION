@@ -1,0 +1,12 @@
+Package: FrasteR
+Type: Package
+Title: FrasteR
+Version: 0.01
+Date: 2014-10-31
+Author: goangit
+Maintainer: goangit <goangit@gmail.com>
+Depends: R (>= 2.14.0), raster
+Suggests: testthat
+LazyData: yes
+Description: R-Fortran Template
+License: Undecided
