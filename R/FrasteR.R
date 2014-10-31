@@ -10,7 +10,7 @@ brick_add <- function(a,b) {
 
     stopifnot(all(dim(va)==dim(vb)))
 
-    fcall = .Fortran('f_matrix_add', ## PACKAGE='ftest', NAOK=FALSE, DUP=TRUE,
+    fcall = .Fortran('f_matrix_add', PACKAGE='FrasteR', NAOK=FALSE, DUP=TRUE,
         m = as.integer(nrow(va)),
         n = as.integer(ncol(va)),
         a = as.matrix(va),
@@ -30,7 +30,7 @@ array_add <- function(a,b) {
     stopifnot(class(b)=='array')
     stopifnot(all(dim(a)==dim(b)))
 
-    fcall = .Fortran('f_array_add', ## PACKAGE='ftest', NAOK=FALSE, DUP=TRUE,
+    fcall = .Fortran('f_array_add', PACKAGE='FrasteR', NAOK=FALSE, DUP=TRUE,
         p = as.integer(dim(a)[1]),
         q = as.integer(dim(a)[2]),
         r = as.integer(dim(a)[3]),
@@ -49,7 +49,7 @@ matrix_add <- function(a,b) {
     stopifnot(class(b)=='matrix')
     stopifnot(all(dim(a)==dim(b)))
 
-    fcall = .Fortran('f_matrix_add', ## PACKAGE='ftest', NAOK=FALSE, DUP=TRUE,
+    fcall = .Fortran('f_matrix_add', PACKAGE='FrasteR', NAOK=FALSE, DUP=TRUE,
         m = as.integer(nrow(a)),
         n = as.integer(ncol(a)),
         a = as.matrix(a),
@@ -66,7 +66,7 @@ vector_add <- function(a,b) {
     stopifnot(class(b)=='numeric')
     stopifnot(length(a)==length(b))
 
-    fcall = .Fortran('f_vector_add', ## PACKAGE='ftest', NAOK=FALSE, DUP=TRUE,
+    fcall = .Fortran('f_vector_add', PACKAGE='FrasteR', NAOK=FALSE, DUP=TRUE,
         n = as.integer(length(a)),
         a = as.numeric(a),
         b = as.numeric(b),
