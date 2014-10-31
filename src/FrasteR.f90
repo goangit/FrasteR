@@ -6,8 +6,8 @@ subroutine f_array_add(p, q, r, a, b, c)
 
   integer, intent(in)  :: p,q,r
 
-  double precision, intent(inout), dimension(r,q,p) :: a
-  double precision, intent(inout), dimension(r,q,p) :: b
+  double precision, intent(in),    dimension(r,q,p) :: a
+  double precision, intent(in),    dimension(r,q,p) :: b
   double precision, intent(inout), dimension(r,q,p) :: c
 
   c = a + b
@@ -41,7 +41,7 @@ subroutine f_vector_add(n, a, b, c)
   integer, intent(in)  :: n
 
   double precision, intent(in),    dimension(n) :: a
-  double precision, intent(inout), dimension(n) :: b
+  double precision, intent(in),    dimension(n) :: b
   double precision, intent(inout), dimension(n) :: c
 
   c = a + b
