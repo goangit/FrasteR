@@ -6,7 +6,7 @@ local-install:
 
 autotest: local-install
 
-	R -q -e "library(ftest, lib.loc = '.local')" \
+	R -q -e "library(FrasteR, lib.loc = '.local')" \
 	   -e "library(testthat)" \
 	   -e "auto_test('./R', './inst/tests', 'summary')"
 
