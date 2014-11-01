@@ -1,3 +1,21 @@
+array_add <- function(a,b) {
+
+    stopifnot(class(a)=='array')
+    stopifnot(class(b)=='array')
+    stopifnot(all(dim(a)==dim(b)))
+
+    fcall = .Fortran('f_array_add', PACKAGE='FrasteR', NAOK=FALSE, DUP=TRUE,
+        p = as.integer(dim(a)[1]),
+        q = as.integer(dim(a)[2]),
+        r = as.integer(dim(a)[3]),
+        a = a,
+        b = b,
+        c = array(0, dim(a)))
+
+  return(fcall$c)
+}
+
+
 brick_add <- function(a,b) {
 
     stopifnot(require(raster))
@@ -24,25 +42,6 @@ brick_add <- function(a,b) {
 }
 
 
-array_add <- function(a,b) {
-
-    stopifnot(class(a)=='array')
-    stopifnot(class(b)=='array')
-    stopifnot(all(dim(a)==dim(b)))
-
-    fcall = .Fortran('f_array_add', PACKAGE='FrasteR', NAOK=FALSE, DUP=TRUE,
-        p = as.integer(dim(a)[1]),
-        q = as.integer(dim(a)[2]),
-        r = as.integer(dim(a)[3]),
-        a = a,
-        b = b,
-        c = array(0, dim(a)))
-
-  return(fcall$c)
-}
-
-
-
 matrix_add <- function(a,b) {
 
     stopifnot(class(a)=='matrix')
@@ -60,11 +59,27 @@ matrix_add <- function(a,b) {
 }
 
 
+raster_add <- function(a,b) {
+
+    stopifnot( class(a) == 'RasterLayer' & class(b) == 'RasterLayer' )
+    stopifnot( extent(a) == extent(b) )
+    stopifnot( nrow(a) == nrow(b) )
+    stopifnot( ncol(a) == ncol(b) )
+
+    va <- values(a) ## row-major order
+    vb <- values(b)
+
+    c <- raster( matrix( vector_add(va,vb), ncol=ncol(a), byrow=TRUE) )
+
+    return(c)
+}
+
+
 vector_add <- function(a,b) {
 
-    stopifnot(class(a)=='numeric')
-    stopifnot(class(b)=='numeric')
-    stopifnot(length(a)==length(b))
+    stopifnot( is.numeric(a) & is.numeric(b) )
+    stopifnot( length(a) == length(b) )
+    stopifnot( all( !is.na(a) ) & all( !is.na(b) ) )
 
     fcall = .Fortran('f_vector_add', PACKAGE='FrasteR', NAOK=FALSE, DUP=TRUE,
         n = as.integer(length(a)),
@@ -76,59 +91,4 @@ vector_add <- function(a,b) {
 }
 
 
-## ----- test -----------------------------------------------------------------
-
-pd <- '/home/greg/src/rpkg/ftest'
-solib <- file.path(pd,'src/ftest.so')
-
-if (file.exists(solib)) {
-    if (is.loaded('f_matrix_add')) dyn.unload(solib)
-    dyn.load(solib)
-}
-
-is.loaded('f_matrix_add')
-
-library(raster)
-r <- raster(matrix(1:12, nrow=4, ncol=3))
-r <- brick(stack(r, r*2, r*3))
-s <- r + 1
-
-brick_add(r,s)
-
-
-if (file.exists(solib)) {
-    if (is.loaded('f_array_add')) dyn.unload(solib)
-    dyn.load(solib)
-}
-
-a <- array(as.double(1:18), c(3,2,3))
-b <- array(as.double(2), c(3,2,3))
-
-array_add(a,b)
-
-
-if (file.exists(solib)) {
-    if (is.loaded('f_matrix_add')) dyn.unload(solib)
-    dyn.load(solib)
-}
-
-## nb: matrix_add requires integers to be stored as doubles
-## otherwise the element boundaries will be misplaced and results wrong
-a <- matrix(as.double(1:96),  nrow=12, ncol=8)
-b <- a + 96
-
-matrix_add(a,b)
-
-
-if (file.exists(solib)) {
-    if (is.loaded('f_vector_add')) dyn.unload(solib)
-    dyn.load(solib)
-}
-
-p <- c(2.3, 8.4, 1.2)
-q <- c(1.1, 0.4, 0.2)
-
-vector_add(p,q)
-
-
-## ----- eof ------------------------------------------------------------------
+## Simple.R ends here
