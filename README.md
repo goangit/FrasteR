@@ -10,7 +10,7 @@ data passing to and from Fortran subroutines. The unit tests provide simple use 
 
 Each of the examples mentioned to this point duplicate functionality already available in R or the raster package. Typically users will be interested in cases where Fortran calls provide functionality which is not otherwise available. Some suggestions for seeding such routines, with an emphasis on Raster\* objects, will be provided in FrasteR.R/f90.  
 
-Unit tests are provided at inst/tests using the testthat framework. Testing can be automated using the makefile. 
+Unit tests are provided at inst/tests using the [testthat](https://github.com/hadley/testthat) framework. Testing can be automated using the makefile to further streamline development. 
 
 * `make autotest` builds a local copy of the package and runs the test suite
 
