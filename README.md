@@ -16,7 +16,7 @@ Unit tests are provided at inst/tests using the [testthat](https://github.com/ha
 
 * `make clean`: restores the file tree to a state suitable for `R CMD check`.
 
-It is possible that the makefile will be extended to include a target which appropriately purge/rename the src tree to facilitate new project development. 
+It is possible that the makefile will be extended to include a target which will appropriately purge/rename the src tree to facilitate new project development. 
 
 [Fortran Best Practices](www.fortran90.org/src/best-practices.html) is a useful resource.
 
