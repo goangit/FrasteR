@@ -14,7 +14,7 @@ Unit tests are provided at inst/tests using the [testthat](https://github.com/ha
 
 * `make autotest` builds a local copy of the package and runs the test suite
 
-* `make clean`: restores the file tree to a state suitable for `R CMD check`.
+* `make clean` restores the file tree to a state suitable for `R CMD check`.
 
 It is possible that the makefile will be extended to include a target which will appropriately purge/rename the src tree to facilitate new project development. 
 
